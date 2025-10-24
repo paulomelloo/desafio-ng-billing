@@ -62,7 +62,7 @@ Implementar um serviço robusto no Linux que monitore um diretório específico 
 
 #### Resolução:
 Criado o script move_arquivos.sh utilizado o `inotifywait` gera um loop de baixo consumo de recursos para verificar os arquivos no diretório /opt/dir_origem, caso seja criado algum arquivo nesse diretório, automaticamente é enviado para o diretorio /opt/dir_destino com o comando mv.
-Para inicializar automaticando com o OS, foi criado o serviço move_arquivo.service e o mesmo ativado no systemd.
+Para inicializar automaticamente o script no OS, foi criado o serviço move_arquivo.service e o mesmo ativado no systemd.
 
 #### Guia de instação e Execução
 #### 1- Instalar o inotify-tools
