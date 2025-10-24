@@ -14,16 +14,15 @@ def list_files():
         if not os.path.isdir(FILE_DIRECTORY):
             # Retorna um erro 500 para indicar um problema interno do servidor/contêiner
             app.logger.error(f"O diretório configurado '{FILE_DIRECTORY}' não é um diretório ou não existe.")
-            return jsonify({"Erro": "Diretório não existe ou não é um diretório."}), 500
+            return jsonify({"error": "Diretório não existe ou não é um diretório."}), 500
 
         # Lista todos os itens (arquivos e diretórios) no caminho
         files = os.listdir(FILE_DIRECTORY)
 
-        # Filtra para retornar apenas arquivos, desconsiderando subdiretórios, etc.
-        # Você pode ajustar essa lógica dependendo do requisito exato.
+        # Filtra para contar só os arquivos, não conta diretórios.
         file_list = [f for f in files if os.path.isfile(os.path.join(FILE_DIRECTORY, f))]
 
-        # Retorna a lista em formato JSON
+        # Retorna as infos
         return jsonify({
             "directory": FILE_DIRECTORY,
             "files": file_list,
@@ -33,12 +32,12 @@ def list_files():
     except PermissionError:
         # Caso o contêiner não tenha permissão de leitura no volume montado
         app.logger.error(f"Sem Permissão no '{FILE_DIRECTORY}'.")
-        return jsonify({"Erro": "Sem permissão de leitura."}), 500
+        return jsonify({"error": "Sem permissão de leitura."}), 500
     except Exception as e:
         # Captura qualquer outra exceção inesperada
         app.logger.error(f"Erro Inesperado: {e}")
-        return jsonify({"Erro": "Erro Inesperado."}), 500
+        return jsonify({"error": "Erro Inesperado."}), 500
 
-# Se você rodar o script diretamente (o que Gunicorn não faz, mas é bom ter)
+# Se você rodar o script diretamente
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

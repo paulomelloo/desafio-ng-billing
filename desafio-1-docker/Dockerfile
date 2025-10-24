@@ -16,6 +16,5 @@ RUN mkdir -p ${FILE_DIRECTORY}
 
 EXPOSE 5000
 
-# Comando para rodar a aplicação quando o contêiner for iniciado
-# Usaremos Gunicorn para uma aplicação mais robusta em produção
+# Usaremos Gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
