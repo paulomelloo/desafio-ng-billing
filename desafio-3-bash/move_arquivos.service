@@ -1,0 +1,13 @@
+[Unit]
+Description=Serviço de Monitoramento de Diretório e Movimentação de Arquivos
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/mover_arquivos.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
